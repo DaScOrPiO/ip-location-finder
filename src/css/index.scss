@@ -1,0 +1,119 @@
+@import "./root.scss";
+
+.header-space {
+  background: url("../images/pattern-bg.png");
+  height: 40vh;
+
+  .header-text {
+    color: $white;
+    font-weight: 400;
+  }
+
+  .input-ip {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .input-text {
+      width: 50%;
+      border-radius: 0.5rem 0 0 0.5rem;
+      border: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    .input-submit {
+      background-color: $VeryDarkGray;
+      width: 40px;
+      border: none;
+      border-radius: 0 0.5rem 0.5rem 0;
+      &:focus {
+        outline: none;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.details {
+  background-color: $white;
+  width: auto;
+  height: 30vh;
+  border-radius: 0.5rem;
+  margin-top: -5%;
+  .contents {
+    width: 100%;
+    padding: 0 1%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 2%;
+    .bordered {
+      border-right: 1px solid $DarkGray;
+      height: 50%;
+      &:last-child {
+        border-right: 0;
+      }
+    }
+    hr {
+      border: none;
+      margin: 2%;
+    }
+    .small {
+      color: $DarkGray;
+    }
+    .text {
+      color: $VeryDarkGray;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .details {
+    margin-top: -25%;
+    .contents {
+      .bordered {
+        border: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header-space {
+    .input-ip {
+      .input-text {
+        width: 90%;
+      }
+    }
+  }
+
+  .details {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: auto;
+    margin-top: -25%;
+    .contents {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      margin-right: 0;
+      .bordered {
+        border: none;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
