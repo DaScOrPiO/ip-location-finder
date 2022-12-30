@@ -72,6 +72,19 @@
   }
 }
 
+.footer{
+    // width: 100vw;
+    height: 50vh;
+    background-color: $VeryDarkGray;
+    color: #ffffff;
+    .logo-container{
+        .link{
+            margin-right: 10%;
+            padding: 2%;
+        }
+    }
+}
+
 @media screen and (max-width: 1023px) {
   .details {
     margin-top: -25%;
@@ -115,5 +128,9 @@
         flex-direction: column;
       }
     }
+  }
+
+  .footer{
+    height: auto;
   }
 }

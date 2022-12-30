@@ -83,6 +83,16 @@ body {
   font-size: 1.5rem;
 }
 
+.footer {
+  height: 50vh;
+  background-color: #2b2b2b;
+  color: #ffffff;
+}
+.footer .logo-container .link {
+  margin-right: 10%;
+  padding: 2%;
+}
+
 @media screen and (max-width: 1023px) {
   .details {
     margin-top: -25%;
@@ -118,5 +128,8 @@ body {
     justify-content: center;
     display: flex;
     flex-direction: column;
+  }
+  .footer {
+    height: auto;
   }
 }/*# sourceMappingURL=index.css.map */
