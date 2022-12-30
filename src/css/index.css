@@ -54,6 +54,8 @@ body {
   height: 30vh;
   border-radius: 0.5rem;
   margin-top: -5%;
+  z-index: 500;
+  position: relative;
 }
 .details .contents {
   width: 100%;
@@ -97,7 +99,6 @@ body {
   width: 100vw;
   height: 85vh;
   margin-top: -14%;
-  z-index: -1;
 }
 
 @media screen and (max-width: 1023px) {

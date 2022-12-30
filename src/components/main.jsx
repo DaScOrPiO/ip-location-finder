@@ -72,7 +72,8 @@ export default function Main() {
         center={[51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={true}
-        className="MapContainer"
+        className="MapContainer mt-n6"
+        // style={{width: "100vw", height: "700px"}}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
