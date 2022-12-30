@@ -30,13 +30,13 @@ export default function Footer() {
           </a>
         </div>
         <div className=" d-flex mt-3">
-          <p>
+          <article>
             This project was created by DaScOrPiO, courtsey of FrontendMentor.io{" "}
             <hr />{" "}
             <span className="d-flex align-iten-center justify-content-center text-center">
               &copy; 2022{" "}
             </span>
-          </p>
+          </article>
         </div>
       </div>
     </footer>

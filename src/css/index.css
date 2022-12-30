@@ -93,12 +93,22 @@ body {
   padding: 2%;
 }
 
+.MapContainer {
+  width: 100vw;
+  height: 85vh;
+  margin-top: -14%;
+  z-index: -1;
+}
+
 @media screen and (max-width: 1023px) {
   .details {
     margin-top: -25%;
   }
   .details .contents .bordered {
     border: none;
+  }
+  .MapContainer {
+    margin-top: -20%;
   }
 }
 @media screen and (max-width: 767px) {
@@ -131,5 +141,9 @@ body {
   }
   .footer {
     height: auto;
+  }
+  .MapContainer {
+    margin-top: -68%;
+    height: 100vh;
   }
 }/*# sourceMappingURL=index.css.map */

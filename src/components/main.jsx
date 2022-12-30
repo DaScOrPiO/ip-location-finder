@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import icon from "./icon";
 
 export default function Main() {
+  const [Input, setInput] = useState("");
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(Input);
+  };
+
   return (
     <div>
       <header className="header-space d-flex flex-column align-items-center container-fluid">
@@ -11,8 +25,14 @@ export default function Main() {
             type="text"
             className="input-text py-2 ps-3"
             placeholder="Search for any IP address or domain"
+            onChange={handleChange}
+            value={Input}
           />
-          <button type="submit" className="input-submit p-2">
+          <button
+            type="submit"
+            className="input-submit p-2"
+            onClick={handleSubmit}
+          >
             <img src={require("../images/icon-arrow.svg").default} alt="" />
           </button>
         </div>
@@ -47,6 +67,23 @@ export default function Main() {
           </div>
         </div>
       </div>
+
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={true}
+        className="MapContainer"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker icon={icon} position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
     </div>
   );
 }

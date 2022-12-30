@@ -85,6 +85,13 @@
     }
 }
 
+.MapContainer{
+  width: 100vw;
+  height: 85vh;
+  margin-top: -14%;
+  z-index: -1;
+}
+
 @media screen and (max-width: 1023px) {
   .details {
     margin-top: -25%;
@@ -93,6 +100,10 @@
         border: none;
       }
     }
+  }
+
+  .MapContainer{
+    margin-top: -20%;
   }
 }
 
@@ -132,5 +143,10 @@
 
   .footer{
     height: auto;
+  }
+
+  .MapContainer{
+    margin-top: -68%;
+    height: 100vh;
   }
 }
