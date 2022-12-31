@@ -67,11 +67,8 @@ body {
   margin-right: 2%;
 }
 .details .contents .bordered {
-  border-right: 1px solid #969696;
+  width: 100%;
   height: 50%;
-}
-.details .contents .bordered:last-child {
-  border-right: 0;
 }
 .details .contents hr {
   border: none;
@@ -108,6 +105,9 @@ body {
   .details .contents .bordered {
     border: none;
   }
+  .details .contents .border-end {
+    border: none !important;
+  }
   .MapContainer {
     margin-top: -20%;
   }
@@ -139,6 +139,9 @@ body {
     justify-content: center;
     display: flex;
     flex-direction: column;
+  }
+  .details .contents .border-end {
+    border: none !important;
   }
   .footer {
     height: auto;

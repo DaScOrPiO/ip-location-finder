@@ -64,7 +64,6 @@ export default function Main() {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleChange();
-    console.log(Input);
   };
 
   return (
@@ -95,13 +94,13 @@ export default function Main() {
         <>
           <div className="container-sm details d-flex justify-content-center">
             <div className="contents">
-              <div className="bordered">
+              <div className="bordered border-end">
                 <small className="small">IP ADDRESS</small>
                 <h1 className="text">{Address.ip}</h1>
               </div>
             </div>
             <div className="contents">
-              <div className="bordered">
+              <div className="bordered border-end">
                 <small className="small">LOCATION</small>
                 <h1 className="text">
                   {Address.location.region}, <hr />
@@ -110,7 +109,7 @@ export default function Main() {
               </div>
             </div>
             <div className="contents">
-              <div className="bordered">
+              <div className="bordered border-end">
                 <small className="small">TIMEZONE</small>
                 <h1 className="text">{Address.location.timezone}</h1>
               </div>
