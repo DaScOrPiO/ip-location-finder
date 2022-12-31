@@ -1,17 +1,54 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { React, useState, useEffect } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import icon from "./icon";
+import axios from "axios";
+import MapPosition from "./mapPosition";
 
 export default function Main() {
   const [Input, setInput] = useState("");
+  const [Address, setAddress] = useState(null);
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
+  const IpAddressRegEX =
+    /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
+  const DomainRegEX =
+    /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const res = await axios.get(
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=8.8.8.8`
+        );
+        const data = res.data;
+        setAddress(data);
+        console.log(data);
+      } catch (err) {
+        console.trace(err);
+      }
+    };
+    getLocation();
+  }, []);
+
+  const handleChange = async (e) => {
+    const res = await axios.get(
+      `https://geo.ipify.org/api/v2/country,city?apiKey=${
+        process.env.REACT_APP_API_KEY
+      }&ipAddress=${
+        IpAddressRegEX.test(Input)
+          ? Input
+          : DomainRegEX.test(Input)
+          ? Input
+          : `192.212.174.101`
+      }`
+    );
+    const data = res.data;
+    setAddress(data);
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleChange();
     console.log(Input);
   };
 
@@ -25,7 +62,7 @@ export default function Main() {
             type="text"
             className="input-text py-2 ps-3"
             placeholder="Search for any IP address or domain"
-            onChange={handleChange}
+            onChange={(e) => setInput(e.target.value)}
             value={Input}
           />
           <button
@@ -37,54 +74,52 @@ export default function Main() {
           </button>
         </div>
       </header>
-      <div className="container-sm details d-flex justify-content-center">
-        <div className="contents">
-          <div className="bordered">
-            <small className="small">IP ADDRESS</small>
-            <h1 className="text">192.212.174.101</h1>
+      {Address && (
+        <>
+          <div className="container-sm details d-flex justify-content-center">
+            <div className="contents">
+              <div className="bordered">
+                <small className="small">IP ADDRESS</small>
+                <h1 className="text">{Address.ip}</h1>
+              </div>
+            </div>
+            <div className="contents">
+              <div className="bordered">
+                <small className="small">LOCATION</small>
+                <h1 className="text">
+                  {Address.location.region}, <hr />
+                  {Address.location.postalCode}
+                </h1>
+              </div>
+            </div>
+            <div className="contents">
+              <div className="bordered">
+                <small className="small">TIMEZONE</small>
+                <h1 className="text">{Address.location.timezone}</h1>
+              </div>
+            </div>
+            <div className="contents">
+              <div className="bordered">
+                <small className="small">ISP</small>
+                <h1 className="text">{Address.isp}</h1>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="contents">
-          <div className="bordered">
-            <small className="small">LOCATION</small>
-            <h1 className="text">
-              BROOKLYN NY, <hr /> 100001
-            </h1>
-          </div>
-        </div>
-        <div className="contents">
-          <div className="bordered">
-            <small className="small">TIMEZONE</small>
-            <h1 className="text">UTC-5:00</h1>
-          </div>
-        </div>
-        <div className="contents">
-          <div className="bordered">
-            <small className="small">ISP</small>
-            <h1 className="text">
-              SPACEX <hr /> STARLINK
-            </h1>
-          </div>
-        </div>
-      </div>
 
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        scrollWheelZoom={true}
-        className="MapContainer mt-n6"
-        // style={{width: "100vw", height: "700px"}}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker icon={icon} position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </MapContainer>
+          <MapContainer
+            center={[Address.location.lat, Address.location.lng]}
+            zoom={5}
+            scrollWheelZoom={true}
+            className="MapContainer mt-n6"
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <MapPosition address={Address} />
+          </MapContainer>
+        </>
+      )}
     </div>
   );
 }
