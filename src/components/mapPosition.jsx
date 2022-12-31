@@ -18,7 +18,7 @@ export default function MapPosition(props) {
     <>
       <Marker icon={icon} position={location}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          Current location is <br /> {props.location}.
         </Popup>
       </Marker>
     </>

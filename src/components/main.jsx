@@ -3,10 +3,23 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import MapPosition from "./mapPosition";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Main() {
   const [Input, setInput] = useState("");
   const [Address, setAddress] = useState(null);
+
+  const alert = () =>
+    toast(`Value not a valid IP address or domain`, {
+      position: "top-center",
+      autoClose: false,
+    });
+
+  const val = `192.212.174.101`;
+  const reset = () => {
+    alert();
+  };
 
   const IpAddressRegEX =
     /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
@@ -17,35 +30,37 @@ export default function Main() {
     const getLocation = async () => {
       try {
         const res = await axios.get(
-          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=8.8.8.8`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${val}`
         );
         const data = res.data;
         setAddress(data);
-        console.log(data);
       } catch (err) {
-        console.trace(err);
+        const alert = () =>
+          toast(`Can't process request right now :( please try again soon`, {
+            position: "top-center",
+          });
+        alert();
       }
     };
     getLocation();
-  }, []);
+  }, [val]);
 
   const handleChange = async (e) => {
     const res = await axios.get(
       `https://geo.ipify.org/api/v2/country,city?apiKey=${
         process.env.REACT_APP_API_KEY
-      }&ipAddress=${
+      }&${
         IpAddressRegEX.test(Input)
-          ? Input
+          ? `ipAddress=${Input}`
           : DomainRegEX.test(Input)
-          ? Input
-          : `192.212.174.101`
+          ? `domain=${Input}`
+          : `ipAddress=${reset()}`
       }`
     );
     const data = res.data;
     setAddress(data);
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     handleChange();
@@ -73,6 +88,8 @@ export default function Main() {
             <img src={require("../images/icon-arrow.svg").default} alt="" />
           </button>
         </div>
+
+        <ToastContainer position="top-center" autoClose={false} />
       </header>
       {Address && (
         <>
@@ -116,7 +133,7 @@ export default function Main() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <MapPosition address={Address} />
+            <MapPosition address={Address} location={Address.location.region} />
           </MapContainer>
         </>
       )}
