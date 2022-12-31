@@ -4,7 +4,7 @@ Ip Location Finder is an app that helps track the location of an Ip address, it 
 
 ## How to use it
 
-* Visit the app url `ip-finder.netlify.me`
+* Visit the app url `https://ipaddress-locator.netlify.app`
 
 * On the main page, input the Ip address on the search bar and watch the app tells the location of that exact Ip address.
 
