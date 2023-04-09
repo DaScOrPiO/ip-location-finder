@@ -16,7 +16,7 @@ export default function Main() {
       autoClose: false,
     });
 
-  const val = `192.212.174.101`;
+  const val = ``;
   const reset = () => {
     alert();
   };
