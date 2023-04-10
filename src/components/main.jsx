@@ -16,7 +16,6 @@ export default function Main() {
       autoClose: false,
     });
 
-  const val = ``;
   const reset = () => {
     alert();
   };
@@ -28,9 +27,12 @@ export default function Main() {
 
   useEffect(() => {
     const getLocation = async () => {
+      const url = "https://api.ipify.org?format=json";
       try {
+        const req = await axios.get(url);
+        const ip = req.data.ip;
         const res = await axios.get(
-          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${val}`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${ip}`
         );
         const data = res.data;
         setAddress(data);
@@ -43,7 +45,7 @@ export default function Main() {
       }
     };
     getLocation();
-  }, [val]);
+  }, []);
 
   const handleChange = async (e) => {
     const res = await axios.get(
